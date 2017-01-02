@@ -1,5 +1,4 @@
-package au.com.nanjing.driving.service;
-
+package au.com.nanjing.driving.restful;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,10 +15,10 @@ import au.com.nanjing.driving.GlobalStatic;
 import au.com.nanjing.driving.entity.ContactMessage;
 
 /**
- * Created by tonyliu on 26/12/2016.
+ * Created by tonyliu on 31/12/2016.
  */
 
-public class RestfulRequest extends AsyncTask<Void, Void, List<ContactMessage>> {
+public class RestRetrieveContact extends AsyncTask<Void, Void, List<ContactMessage>> {
     private static final String tag  = "RestRetrieveContact";
     @Override
     protected List<ContactMessage> doInBackground(Void... params){
@@ -39,9 +38,9 @@ public class RestfulRequest extends AsyncTask<Void, Void, List<ContactMessage>> 
     }
 
     @Override
-    protected void onPostExecute(List<ContactMessage> messageList){
-        GlobalStatic.G_List_ContactMessage = messageList;
-        if(GlobalStatic.G_List_ContactMessage != null) Log.v(tag, "message count returned:"+GlobalStatic.G_List_ContactMessage.size());
+    protected void onPostExecute(List<ContactMessage> bikelist){
+        GlobalStatic.G_List_ContactMessage = bikelist;
+        if(GlobalStatic.G_List_ContactMessage != null) Log.v(tag, "bike count returned:"+GlobalStatic.G_List_ContactMessage.size());
         if(GlobalStatic.Main_Handler != null){
             GlobalStatic.Main_Handler.sendEmptyMessage(Constants.MSG_SITES_READY);
         }

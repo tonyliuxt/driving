@@ -18,11 +18,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.ref.WeakReference;
+import java.util.function.Function;
 
 import au.com.nanjing.driving.Constants;
+import au.com.nanjing.driving.Functions;
+import au.com.nanjing.driving.GlobalStatic;
 import au.com.nanjing.driving.R;
 
 public class MainActivity extends AppCompatActivity
@@ -75,29 +77,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Toast.makeText(this.getApplicationContext(), "retrieveBikeSites", Toast.LENGTH_LONG);
-        //Functions.retrieveBikeSites();
+    }
 
-                // [START subscribe_topics]
-                FirebaseMessaging.getInstance().subscribeToTopic("news");
-                // [END subscribe_topics]
+    @Override
+    protected void onStart(){
+        super.onStart();
 
-                // Log and toast
-                Toast.makeText(MainActivity.this, "news11122", Toast.LENGTH_SHORT).show();
+        // 1. Generate Fire token from Google Fire Base Server
+        GlobalStatic.FIRE_TOKEN = FirebaseInstanceId.getInstance().getToken();
 
-                // Get token
-                String token = FirebaseInstanceId.getInstance().getToken();
-
-                // Log and toast
-                Log.v(tag, token);
-        System.out.println("----token:"+token);
-                Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+        Log.d(tag, GlobalStatic.FIRE_TOKEN);
+        // 2. Get Token from PigeonBooking.com.au Web Server
+        Functions.getToken();
 
     }
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this.getApplicationContext(), "retrieveBikeSites", Toast.LENGTH_LONG);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
