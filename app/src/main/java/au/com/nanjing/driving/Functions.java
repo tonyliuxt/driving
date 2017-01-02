@@ -44,12 +44,12 @@ public class Functions {
         return new HttpEntity<Object>(headers);
     }
 
-    public static HttpEntity<Object> createLTKHttpEntity(String token) {
+    public static HttpEntity<Object> createLTKHttpEntity(String springAuthToken, String firebaseToken) {
         MultiValueMap<String, String> headers =  new LinkedMultiValueMap<String, String>();
         headers.add("Accept", "application/json");
-        headers.add(Constants.X_TOKEN, token);
+        headers.add(Constants.X_TOKEN, springAuthToken);
         Token tokenobj = new Token();
-        tokenobj.setToken(token);
+        tokenobj.setToken(firebaseToken);
         return new HttpEntity<Object>(tokenobj, headers);
     }
 

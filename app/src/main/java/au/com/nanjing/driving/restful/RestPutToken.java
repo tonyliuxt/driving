@@ -26,10 +26,11 @@ public class RestPutToken extends AsyncTask<Object, Object, ResponseEntity<Token
         try{
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            HttpEntity<Object> requestEntityWithHeader = Functions.createLTKHttpEntity(GlobalStatic.AUTH_TOKEN);
+            HttpEntity<Object> requestEntityWithHeader = Functions.createLTKHttpEntity(GlobalStatic.AUTH_TOKEN, GlobalStatic.FIRE_TOKEN);
 
             Token token = new Token();
             token.setToken(GlobalStatic.FIRE_TOKEN);
+
             response = restTemplate.exchange(Constants.API_URL_SET_TOKEN, HttpMethod.POST, requestEntityWithHeader, Token.class);
         }catch(Exception ex){
             ex.printStackTrace();
